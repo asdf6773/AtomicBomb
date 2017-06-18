@@ -3,7 +3,6 @@ import processing.video.*;
 import processing.sound.*;
 import processing.serial.*;
 
-
 //define Serial port
 Serial myPort; 
 
@@ -15,7 +14,6 @@ SoundFile bomb;   // sound of firing
 PImage wait;      // static image of before firing
 
 //define some variables
-int count;       //define a delay count for playing sound of explosion
 int val;         //value received from Arduino Serial writing
 int lastVal;     // val value of last frame 
 boolean status;  //status of whether bomb is fired 
@@ -28,7 +26,6 @@ void setup() {
   size(800, 600);  //set window to 800x600
 
   //initialize varibles
-  count=0;
   n=0;
   status = false;
   val = 0;
@@ -55,6 +52,7 @@ void setup() {
 }
 
 void draw() {
+  //println(atomBomb.time());
   n+=0.03;             //set increment of noise parameter as 0.03 
   wiggle = noise(n);   // get the value of noise
 
@@ -78,7 +76,6 @@ void draw() {
   }
   //show video
   if (status) {       //while the status become true
-    count+=1;         //timer began to count
     image(atomBomb, 0, 0, 800, 600);  //show video
   } else { 
     //static image before cannon firing
@@ -86,8 +83,8 @@ void draw() {
     image(wait, 5*wiggle, 5*wiggle, 795+5*wiggle, 595+5*wiggle);
   }
 
-  //after 6 second of firing, play the sound of big explosion
-  if (count==30*6) {
+  //after 10 second of firing, play the sound of big explosion
+  if (floor(atomBomb.time())==10) {
     bomb.play();
   }
 

@@ -4,7 +4,6 @@ void setup() {
   Serial.begin(9600);
   pinMode(13, OUTPUT);
 }
-
 void loop() {
   val = digitalRead(13);
   Serial.write(val);
